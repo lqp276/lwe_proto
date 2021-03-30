@@ -1,11 +1,6 @@
 # lwe_proto
 A Light-Weight and Extensible(LWE) binary protocol compiler framework 
 
-# why not proto buffer
-Proto buffer is a powerful protocol format compiler, You should first consider use it unless:
-> 1. You need fullly control the message bianry layout
-> 2. You want keep the project dependency as less as possible
-
 # why need lwe_proto
 As a C/go developer sometimes I need use binary format (JSON is not space efficient for some case) to exchange message between server and client SDK, So I write this tool to ease the process of:
 > 1. Define the **message ID** and **message structure**
@@ -14,6 +9,11 @@ As a C/go developer sometimes I need use binary format (JSON is not space effici
 With **lwe_proto** We just care about the message ID and layout, whenever We want add new messages or change the message format, We just need change the definition file, then use **lwe_proto** to generate the  **Encode/Decode** logic
 
 In my work, I write the server in golang, and SDK in C for Android/iOS/Windows platform, for security reasons, Here only open source the golang generator. It is easy to write generator for other languages.
+
+# why not proto buffer
+Proto buffer is a powerful protocol format compiler, You should first consider use it unless:
+> 1. You need fullly control the message bianry layout
+> 2. You want keep the project dependency as less as possible
 
 # examples
 
