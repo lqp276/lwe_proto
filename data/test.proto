@@ -1,0 +1,36 @@
+
+//use // for normal comment in proto files
+//use //* for comment that need to write to source code
+
+//mspace define the message space
+mspace lwe
+
+//define const
+const ProtoVersion           0x01
+
+defmid lwe_msgid {
+    //*base comment
+    Lwe_msg_base = 0,
+    Lwe_msg_connect,
+    Lwe_msg_connect_ack,
+}
+
+//define message bind 
+bind Lwe_msg_connect            LweMsg_Connect
+bind Lwe_msg_connect_ack        nil //bind to nil means this message id has no body
+
+//define 2-byte header
+defmsg LweMsg_Header {
+    Version         u2 -> equal ProtoVersion //this will be checked by generated code
+    Flags           u6
+    MessageId       u8
+}
+
+const MaxNameSize     20
+
+defmsg LweMsg_Connect {
+	IP              u32
+    Port            u16
+    NameLen         u8  ->  max MaxNameSize
+	Name            []u8 -> limit by NameLen
+}
