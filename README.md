@@ -1,5 +1,5 @@
 # lwe_proto
-A Light-Weight and Extensible(LWE) network binary protocol compiler framework 
+A Light-Weight and Extensible(LWE) binary protocol compiler framework 
 
 # why not proto buffer
 Proto buffer is a powerful protocol format compiler, You should first consider use it unless:
