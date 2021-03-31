@@ -1,30 +1,27 @@
-[English Version](README-en.md)
-
+[中文版本](README.zh-cn.md)
 # lwe_proto
-一个**轻量可扩展(Light-Weight, Extensible)**的二进制协议序列化编译工具框架, 功能类似于类似与proto buffer, 但试图做的更轻量易懂并减少依赖.
+A Light-Weight and Extensible(LWE) binary protocol serialization compiler tool framework, It likes proto buffer, but try to make it light weight, and the generated code more readable. You can easily extend it as you need.
 
-# 为什么需要lwe_proto
-作为一个C/go程序员, 我需要在服务器和客户端之间用二进制的消息协议来交换数据(JSON不够经济), 基本过程大概是这样:
-> 1. 定义消息ID和消息体内容字段
-> 2. 编写消息体的编解码代码, 然后编写根据消息ID解消息内容的代码
-迭代时, 需要重复步骤1-2, 而步骤2重复性很高而且容易出错
+# Why need lwe_proto
+As a C/go developer sometimes I need use binary format (JSON is not space efficient) to exchange message between server and client SDK, Normally the process are:
+> 1. Define the **message ID** and **message structure**
+> 2. Write the **Encode/Decode** source code for the messages
 
-为了简化这样的开发流程, 我编写了**lwe_proto**, 有了这个工具之后, 流程变成:
-> 1. 定义消息ID和消息体内容字段
-> 2. 使用**lwe_proto**来生成消息的编解码代码
+When developing, Step 1-2 are repeated many times and The work in Step 2 is boring and error-prone, So I write this tool to ease the process ant it becomes:
+> 1. Define the **message ID** and **message structure**
+> 2. Use **lwe_proto** to generate the **Encode/Decode** source code for the messages
 
-使用**lwe_proto**之后, 我们只需要关心消息ID和消息结构的定义, 当需要新增或者修改协议消息时, 只需要修改消息定义文件, 然后重新生成就哦了, 大大简化了开发的流程并减少出错的可能性.
+ With **lwe_proto** I need care only about the message ID and field layout, whenever add new messages or change the message field, I just change the definition file, then use **lwe_proto** to generate the  **Encode/Decode** code, this saves me a lot of time.
 
-在我的工作中, 服务是用go写的, 客户端的SDK是用C写, 因此工具可以生成go和C的代码并且可以相互工作, 出于保密原因, 这里只开放go的生成部分, 你根据自己的需要对**lwe_proto**进行扩展, 有生成go的部分做参考, 应该不是一件很难的事情.
+In my work, I write the server in golang, and SDK in C for Android/iOS/Windows platform, for security reasons, Here only open source the golang generator. It is easy to write generator for other languages if you read the code for go-generator.
 
-# 为什么不使用proto buffer
-proto buffer是一个强大的协议序列化生成工具, 你应该首先考虑用它, 除非你有下面的需求:
-> 1. 你需要对生成的代码有完全的控制, 或者需要自定义一些内容
-> 2. 你想自己项目尽可能少的依赖外部函数库
+# Why not proto buffer
+Proto buffer is a powerful protocol format compiler, You should first consider use it unless:
+> 1. You need fullly control the message binary layout
+> 2. You want keep the project dependency as less as possible
 
-# 使用例子(ubuntu环境下)
-
-1. 查看协议文件内容:
+# Example
+1. show proto file content:
 ```bash
 $cat data/test.proto 
 
@@ -66,7 +63,8 @@ defmsg LweMsg_Connect {
 
 ```
 
-2. 生成go代码
+2. Generate codec code in go
+
 ```bash
 $go build .
 $./lwe_proto -f data/test.proto 
@@ -178,17 +176,17 @@ func decodeLweMsgById(buf io.Reader, mid uint16, msg interface{}) int {
 
 ```
 
-# 特性
-1. 支持uint8, uint16, uint32, and uint64类型
-2. 支持比特字段, 例如2bit,3-bit的字段
-3. 支持变长字节数组
-4. 支持简单的编解码错误判断
-5. 自定义消息ID和消息体的绑定
+# Features
+1. Support uint8, uint16, uint32, and uint64 types
+2. Support bit field encoding, eg. 2-bit, 3-bit field
+3. Support simple custom error checks
+4. Support variable length byte array
+5. Custom bind message id to message structure
 
-# 它是如何工作的
-它的工作方式和语言解释器类似, 主要包括以下几个步骤:
-> 1. 词法分析
-> 2. 语法分析
-> 3. 语义分析, 生成抽象语法树AST
-> 4. 解释执行AST
-对于 **lwe_proto** 来说, 它的主要工作在第4步, 遍历AST来生成相应的代码, 这里也是扩展其他生成语言唯一需要修改的地方.
+# How it works
+Basically it works like a language interpreter with below process:
+> 1. lexical analysis
+> 2. syntax analysis
+> 3. semantic analysis, generate the Abstruct Syntax Tree
+> 4. interprete the AST. 
+For **lwe_proto** It do the main work in step 4: walking the AST and generate the message codes, You need only add/change the code in Step.4 if you want to extend **lwe_proto**.

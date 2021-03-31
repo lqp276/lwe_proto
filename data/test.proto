@@ -29,8 +29,8 @@ defmsg LweMsg_Header {
 const MaxNameSize     20
 
 defmsg LweMsg_Connect {
-	IP              u32
+    IP              u32
     Port            u16
     NameLen         u8  ->  max MaxNameSize
-	Name            []u8 -> limit by NameLen
+    Name            []u8 -> limit by NameLen
 }
