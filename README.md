@@ -12,7 +12,7 @@ In my work, I write the server in golang, and SDK in C for Android/iOS/Windows p
 
 # Why not proto buffer
 Proto buffer is a powerful protocol format compiler, You should first consider use it unless:
-> 1. You need fullly control the message bianry layout
+> 1. You need fullly control the message binary layout
 > 2. You want keep the project dependency as less as possible
 
 # Example
@@ -173,9 +173,10 @@ func decodeLweMsgById(buf io.Reader, mid uint16, msg interface{}) int {
 
 # Features
 1. Support uint8, uint16, uint32, and uint64 types
-2. Support simple custom error checks
-3. Support variable length byte array
-4. Custom bind message id to message structure
+2. Support bit field encoding, eg. 2-bit, 3-bit field
+3. Support simple custom error checks
+4. Support variable length byte array
+5. Custom bind message id to message structure
 
 # How it works
 Basically it works like a language interpreter with below process:
