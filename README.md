@@ -1,7 +1,7 @@
 [English Version](README-en.md)
 
 # lwe_proto
-一个**轻量可扩展(Light-Weight, Extensible)**的二进制协议序列化编译工具框架, 功能类似于类似与proto buffer, 但试图做的更轻量易懂并减少依赖.
+一个轻量可扩展(Light-Weight, Extensible)的二进制协议序列化编译工具框架, 功能类似于类似与proto buffer, 但试图做的更轻量易懂并减少依赖.
 
 # 为什么需要lwe_proto
 作为一个C/go程序员, 我需要在服务器和客户端之间用二进制的消息协议来交换数据(JSON不够经济), 基本过程大概是这样:

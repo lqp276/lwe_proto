@@ -20,7 +20,7 @@ Proto buffer is a powerful protocol format compiler, You should first consider u
 > 1. You need fullly control the message binary layout
 > 2. You want keep the project dependency as less as possible
 
-# Example
+# Example (Ubuntu os)
 1. show proto file content:
 ```bash
 $cat data/test.proto 
